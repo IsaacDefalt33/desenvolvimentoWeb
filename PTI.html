@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Itaipu Parquetec - Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos gerais - base do projeto */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Seção COMPETÊNCIAS */
+        .competencias-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .competencias-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .competencias-header h2 {
+            font-size: 2.5rem;
+            color: #0056a6;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .competencias-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #00a859;
+        }
+        
+        .competencias-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 700px;
+            margin: 20px auto 0;
+        }
+        
+        .competencias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .competencia-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 4px solid #0056a6;
+            text-align: center;
+        }
+        
+        .competencia-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .competencia-icon {
+            font-size: 2.5rem;
+            color: #0056a6;
+            margin-bottom: 20px;
+            display: inline-block;
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            background-color: #f0f8ff;
+            border-radius: 50%;
+        }
+        
+        .competencia-card h3 {
+            font-size: 1.4rem;
+            color: #0056a6;
+            margin-bottom: 15px;
+        }
+        
+        .competencia-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* Seção RODAPÉ */
+        footer {
+            background-color: #00264d;
+            color: #fff;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo img {
+            max-width: 180px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo p {
+            color: #b0c4d9;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        
+        .footer-links h3, .footer-contact h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h3::after, .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #00a859;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links ul li a {
+            color: #b0c4d9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #00a859;
+        }
+        
+        .footer-links ul li a i {
+            margin-right: 10px;
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-contact p {
+            color: #b0c4d9;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .footer-contact i {
+            margin-right: 12px;
+            color: #00a859;
+            margin-top: 3px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-social a:hover {
+            background-color: #00a859;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #b0c4d9;
+        }
+        
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-bottom-links a {
+            color: #b0c4d9;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-bottom-links a:hover {
+            color: #00a859;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .competencias-header h2 {
+                font-size: 2rem;
+            }
+            
+            .competencias-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
+        
+        /* Estilos para integrar com o código base */
+        .section-divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Aqui viria o cabeçalho e outras seções já implementadas -->
+    <div class="section-divider"></div>
+    
+    <!-- Seção COMPETÊNCIAS -->
+    <section class="competencias-section" id="competencias">
+        <div class="container">
+            <div class="competencias-header">
+                <h2>COMPETÊNCIAS</h2>
+                <p>O Itaipu Parquetec desenvolve expertise em diversas áreas estratégicas para promover inovação, sustentabilidade e desenvolvimento regional.</p>
+            </div>
+            
+            <div class="competencias-grid">
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustentabilidade Ambiental</h3>
+                    <p>Desenvolvimento de tecnologias e soluções para preservação ambiental, gestão de recursos hídricos e energias renováveis.</p>
+                </div>
+                
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Inovação Tecnológica</h3>
+                    <p>Fomento à pesquisa, desenvolvimento e aplicação de tecnologias inovadoras em diversos setores produtivos.</p>
+                </div>
+                
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Cooperação Internacional</h3>
+                    <p>Estabelecimento de parcerias e projetos colaborativos com instituições de diversos países para troca de conhecimentos.</p>
+                </div>
+                
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Educação e Capacitação</h3>
+                    <p>Programas de formação, capacitação profissional e disseminação do conhecimento para diferentes públicos.</p>
+                </div>
+                
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Desenvolvimento Regional</h3>
+                    <p>Implementação de iniciativas que promovem o crescimento econômico e social sustentável da região.</p>
+                </div>
+                
+                <div class="competencia-card">
+                    <div class="competencia-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Empreendedorismo</h3>
+                    <p>Incentivo à criação e fortalecimento de empreendimentos inovadores através de mentorias, recursos e infraestrutura.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="section-divider"></div>
+    
+    <!-- Seção RODAPÉ -->
+    <footer id="rodape">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <!-- Logo fictício - no site real seria a logo do Itaipu Parquetec -->
+                    <div style="font-size: 1.8rem; font-weight: bold; color: #fff; margin-bottom: 20px;">
+                        ITAIPU <span style="color: #00a859;">PARQUETEC</span>
+                    </div>
+                    <p>Promovendo inovação, sustentabilidade e desenvolvimento regional através da cooperação internacional, pesquisa aplicada e empreendedorismo.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links Rápidos</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Institucional</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Ecossistema de Inovação</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Biblioteca Paulo Freire</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Responsabilidade Social</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Transparência</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Canal de Ética</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Oportunidades</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Trabalhe Conosco</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Editais</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Compras</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Bolsas para Projetos</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cursos</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Escola Itaipu</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Tancredo Neves, 6731 - Jardim Itaipu, Foz do Iguaçu - PR</p>
+                    <p><i class="fas fa-phone"></i> (45) 3520-5600</p>
+                    <p><i class="fas fa-envelope"></i> contato@itaipuparquetec.org.br</p>
+                    <p><i class="fas fa-clock"></i> Segunda a Sexta: 8h às 12h e 13h30 às 17h30</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    &copy; 2023 Itaipu Parquetec. Todos os direitos reservados.
+                </div>
+                <div class="footer-bottom-links">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Mapa do Site</a>
+                    <a href="#">Acessibilidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Efeito de rolagem suave para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Adiciona classe ativa ao card de competência quando hover
+        document.querySelectorAll('.competencia-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderTopColor = '#00a859';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderTopColor = '#0056a6';
+            });
+        });
+        
+        // Atualiza o ano do copyright automaticamente
+        document.addEventListener('DOMContentLoaded', function() {
+            const copyrightElement = document.querySelector('.copyright');
+            if(copyrightElement) {
+                const currentYear = new Date().getFullYear();
+                copyrightElement.innerHTML = copyrightElement.innerHTML.replace('2023', currentYear);
+            }
+        });
+    </script>
+</body>
+</html>
