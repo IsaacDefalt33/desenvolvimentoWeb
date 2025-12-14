@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atividade Avaliativa - Flexbox e CSS Grid</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Atividade Avaliativa JavaScript - Todas as Questões</title>
     <style>
-        /* ===== ESTILOS GERAIS ===== */
         * {
             margin: 0;
             padding: 0;
@@ -17,1242 +15,1230 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #f8f9fa;
+            background-color: #f5f5f5;
         }
         
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
+            display: flex;
+            min-height: 100vh;
         }
         
-        /* ===== NAVEGAÇÃO ENTRE ATIVIDADES ===== */
-        .nav-container {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+        /* Navegação lateral */
+        .sidebar {
+            width: 280px;
+            background-color: #2c3e50;
             color: white;
             padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            position: fixed;
+            height: 100vh;
         }
         
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .logo i {
-            color: #f1c40f;
-        }
-        
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .nav-btn {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-btn:hover, .nav-btn.active {
-            background-color: #f1c40f;
-            color: #2c3e50;
-            border-color: #f1c40f;
-            transform: translateY(-2px);
-        }
-        
-        /* ===== HEADER INFORMATIVO ===== */
-        .header {
-            text-align: center;
-            padding: 60px 0 40px;
-            background-color: white;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .header h1 {
-            font-size: 2.8rem;
-            color: #2c3e50;
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid #34495e;
             margin-bottom: 15px;
         }
         
-        .header p {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-            max-width: 800px;
-            margin: 0 auto;
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
         }
         
-        /* ===== CONTEÚDO DAS ATIVIDADES ===== */
-        .activity-content {
+        .sidebar-header p {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+        
+        .questoes-lista {
+            list-style: none;
+        }
+        
+        .questoes-lista li {
+            margin-bottom: 2px;
+        }
+        
+        .questoes-lista a {
+            display: block;
+            padding: 12px 20px;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+        
+        .questoes-lista a:hover {
+            background-color: #34495e;
+            border-left: 3px solid #3498db;
+        }
+        
+        .questoes-lista a.active {
+            background-color: #34495e;
+            border-left: 3px solid #3498db;
+            font-weight: bold;
+        }
+        
+        /* Conteúdo principal */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 20px;
+        }
+        
+        .questao-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: none;
-            animation: fadeIn 0.5s ease;
         }
         
-        .activity-content.active {
+        .questao-container.active {
             display: block;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* ===== ESTILOS ESPECÍFICOS PARA ATIVIDADE 1 ===== */
-        
-        /* Variáveis para Atividade 1 */
-        .activity-1 {
-            --ametist-color: #9b59b6;
-            --sunflower-color: #f1c40f;
-            --carrot-color: #e67e22;
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-        }
-        
-        /* Header da loja de card games */
-        .store-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px 0;
-            margin-bottom: 30px;
-        }
-        
-        .store-header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .store-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
-        
-        .store-logo i {
-            color: var(--secondary-color);
-        }
-        
-        /* Menu da loja */
-        .store-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-        
-        .store-menu a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-        
-        .store-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .store-menu a.active {
-            background-color: var(--secondary-color);
-        }
-        
-        /* Menu sanduíche (mobile) */
-        .menu-responsive {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: white;
-        }
-        
-        /* Banner da loja */
-        .store-banner {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            margin-bottom: 40px;
-            border-radius: 10px;
-        }
-        
-        .store-banner h1 {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-        }
-        
-        .store-banner p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        /* Container principal da loja */
-        .store-container {
-            width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-        
-        /* Cards da loja */
-        .cards-container {
-            margin-bottom: 40px;
-        }
-        
-        .cards-container h2 {
+        .questao-header {
             margin-bottom: 20px;
-            color: var(--primary-color);
-            font-size: 2rem;
-        }
-        
-        .cards {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        
-        .card-container {
-            flex: 0 0 calc(25% - 15px);
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card-container:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .card {
-            padding: 20px;
-        }
-        
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px 8px 0 0;
-        }
-        
-        .card h3 {
-            color: var(--primary-color);
-            margin: 15px 0 10px;
-            font-size: 1.4rem;
-        }
-        
-        .card p {
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        
-        .card-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 15px;
-        }
-        
-        .card-btn {
-            display: inline-block;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        
-        .card-btn:hover {
-            background-color: var(--primary-color);
-        }
-        
-        /* Footer da loja */
-        .store-footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            margin-top: 40px;
-            border-radius: 10px;
-        }
-        
-        .store-footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .store-footer-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .store-footer-links a {
-            color: white;
-            text-decoration: none;
-        }
-        
-        .store-social-icons {
-            display: flex;
-            gap: 15px;
-            font-size: 1.2rem;
-        }
-        
-        /* Menu mobile expandido */
-        .menu-mobile {
-            display: none;
-            flex-direction: column;
-            background-color: var(--primary-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 10px;
-        }
-        
-        .menu-mobile.active {
-            display: flex;
-        }
-        
-        /* ===== MEDIA QUERIES PARA ATIVIDADE 1 ===== */
-        
-        /* Para dispositivos com no máximo 1200px */
-        @media (max-width: 1200px) {
-            .activity-1 {
-                background-color: var(--ametist-color) !important;
-            }
-            
-            .store-container {
-                width: 768px;
-            }
-            
-            .card-container {
-                flex: 0 0 calc(33.33% - 13.33px);
-            }
-        }
-        
-        /* Para resoluções de até 768px */
-        @media (max-width: 768px) {
-            .activity-1 {
-                background-color: var(--sunflower-color) !important;
-            }
-            
-            .store-container {
-                width: 576px;
-            }
-            
-            .card-container {
-                flex: 0 0 calc(50% - 10px);
-            }
-            
-            .store-banner h1 {
-                font-size: 2.2rem;
-            }
-            
-            .store-footer-content {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-        
-        /* Para resoluções de até 576px */
-        @media (max-width: 576px) {
-            .activity-1 {
-                background-color: var(--carrot-color) !important;
-            }
-            
-            .store-container {
-                width: 100%;
-                padding: 10px;
-            }
-            
-            .card-container {
-                flex: 0 0 100%;
-            }
-            
-            /* Oculta o menu principal e mostra o menu sanduíche */
-            .store-menu {
-                display: none;
-            }
-            
-            .menu-responsive {
-                display: block;
-            }
-            
-            .store-banner {
-                padding: 40px 0;
-            }
-            
-            .store-banner h1 {
-                font-size: 1.8rem;
-            }
-            
-            .store-banner p {
-                font-size: 1rem;
-                padding: 0 15px;
-            }
-            
-            .store-header-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .store-logo {
-                font-size: 1.5rem;
-            }
-            
-            .cards {
-                gap: 15px;
-            }
-        }
-        
-        /* ===== ESTILOS PARA ATIVIDADE 2 ===== */
-        
-        .activity-2 {
-            --mondrian-red: #e74c3c;
-            --mondrian-blue: #3498db;
-            --mondrian-yellow: #f1c40f;
-            --mondrian-black: #2c3e50;
-            --mondrian-white: #ffffff;
-        }
-        
-        .art-header {
-            text-align: center;
-            padding: 40px 0;
-            background-color: white;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .art-header h2 {
-            font-size: 2.5rem;
-            color: var(--mondrian-black);
-            margin-bottom: 15px;
-        }
-        
-        .art-header p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        /* Informações sobre o artista */
-        .artist-info {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .artist-info h3 {
-            color: var(--mondrian-black);
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--mondrian-red);
-            padding-bottom: 10px;
-            display: inline-block;
-        }
-        
-        .artist-info p {
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-        
-        /* Container da obra de arte */
-        .art-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .art-title {
-            text-align: center;
-            margin-bottom: 25px;
-            font-style: italic;
-            color: #7f8c8d;
-            font-size: 1.3rem;
-        }
-        
-        /* Grade Mondrian principal */
-        .mondrian-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-rows: repeat(12, 1fr);
-            gap: 8px;
-            width: 100%;
-            height: 600px;
-            background-color: #000;
-            padding: 8px;
-            border-radius: 5px;
-            margin: 0 auto;
-        }
-        
-        /* Células da grade */
-        .cell {
-            border-radius: 2px;
-        }
-        
-        /* Cores Mondrian */
-        .mondrian-red {
-            background-color: var(--mondrian-red);
-        }
-        
-        .mondrian-blue {
-            background-color: var(--mondrian-blue);
-        }
-        
-        .mondrian-yellow {
-            background-color: var(--mondrian-yellow);
-        }
-        
-        .mondrian-white {
-            background-color: var(--mondrian-white);
-        }
-        
-        .mondrian-black {
-            background-color: var(--mondrian-black);
-        }
-        
-        /* Posicionamento das células */
-        .cell-1 {
-            grid-column: 1 / 4;
-            grid-row: 1 / 3;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-2 {
-            grid-column: 4 / 7;
-            grid-row: 1 / 3;
-            background-color: var(--mondrian-black);
-        }
-        
-        .cell-3 {
-            grid-column: 7 / 10;
-            grid-row: 1 / 3;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-4 {
-            grid-column: 10 / 13;
-            grid-row: 1 / 3;
-            background-color: var(--mondrian-red);
-        }
-        
-        .cell-5 {
-            grid-column: 1 / 4;
-            grid-row: 3 / 7;
-            background-color: var(--mondrian-black);
-        }
-        
-        .cell-6 {
-            grid-column: 4 / 7;
-            grid-row: 3 / 7;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-7 {
-            grid-column: 7 / 10;
-            grid-row: 3 / 5;
-            background-color: var(--mondrian-yellow);
-        }
-        
-        .cell-8 {
-            grid-column: 7 / 10;
-            grid-row: 5 / 7;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-9 {
-            grid-column: 10 / 13;
-            grid-row: 3 / 7;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-10 {
-            grid-column: 1 / 4;
-            grid-row: 7 / 10;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-11 {
-            grid-column: 4 / 7;
-            grid-row: 7 / 9;
-            background-color: var(--mondrian-blue);
-        }
-        
-        .cell-12 {
-            grid-column: 4 / 7;
-            grid-row: 9 / 10;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-13 {
-            grid-column: 7 / 10;
-            grid-row: 7 / 10;
-            background-color: var(--mondrian-black);
-        }
-        
-        .cell-14 {
-            grid-column: 10 / 13;
-            grid-row: 7 / 10;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-15 {
-            grid-column: 1 / 7;
-            grid-row: 10 / 13;
-            background-color: var(--mondrian-yellow);
-        }
-        
-        .cell-16 {
-            grid-column: 7 / 10;
-            grid-row: 10 / 13;
-            background-color: var(--mondrian-white);
-        }
-        
-        .cell-17 {
-            grid-column: 10 / 13;
-            grid-row: 10 / 12;
-            background-color: var(--mondrian-black);
-        }
-        
-        .cell-18 {
-            grid-column: 10 / 13;
-            grid-row: 12 / 13;
-            background-color: var(--mondrian-red);
-        }
-        
-        /* Legenda das cores */
-        .color-legend {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .color-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .color-box {
-            width: 25px;
-            height: 25px;
-            border-radius: 3px;
-        }
-        
-        /* Grade simples para demonstração */
-        .grid-demo {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .grid-demo h3 {
-            color: var(--mondrian-black);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .simple-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 100px);
-            gap: 15px;
-        }
-        
-        .simple-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 5px;
-            font-weight: bold;
-            color: white;
-        }
-        
-        .grid-explanation {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 5px;
-            border-left: 4px solid var(--mondrian-blue);
-        }
-        
-        /* ===== FOOTER GERAL ===== */
-        .page-footer {
-            text-align: center;
-            padding: 30px 0;
-            color: #7f8c8d;
-            margin-top: 50px;
-            border-top: 1px solid #eee;
-        }
-        
-        /* ===== RESPONSIVIDADE GERAL ===== */
-        @media (max-width: 1200px) {
-            .store-container {
-                width: 100%;
-                max-width: 768px;
-            }
-            
-            .mondrian-grid {
-                height: 500px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-content {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .mondrian-grid {
-                height: 400px;
-                gap: 6px;
-                padding: 6px;
-            }
-            
-            .art-header h2 {
-                font-size: 2rem;
-            }
-            
-            .color-legend {
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .mondrian-grid {
-                height: 300px;
-                gap: 4px;
-                padding: 4px;
-            }
-            
-            .art-header h2 {
-                font-size: 1.6rem;
-            }
-            
-            .header h1 {
-                font-size: 2rem;
-            }
-        }
-        
-        /* ===== SEÇÃO DE EXPLICAÇÃO ===== */
-        .explanation {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            margin: 40px 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        .explanation h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
         }
         
-        .explanation ul {
-            padding-left: 20px;
+        .questao-header h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .questao-header p {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .enunciado {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
             margin-bottom: 20px;
+            border-radius: 4px;
         }
         
-        .explanation li {
+        .enunciado h3 {
+            color: #2c3e50;
             margin-bottom: 10px;
-            line-height: 1.6;
         }
         
-        .code-block {
+        .implementacao {
+            margin-top: 25px;
+        }
+        
+        .implementacao h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        button, input, select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .resultado {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+        }
+        
+        .codigo {
             background-color: #2c3e50;
             color: #ecf0f1;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 4px;
             font-family: 'Courier New', monospace;
             margin: 15px 0;
             overflow-x: auto;
+            font-size: 0.9rem;
+        }
+        
+        .controles {
+            margin: 15px 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .lista-dinamica {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .imagem-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .imagem-container img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .slideshow img {
+            width: 100%;
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .error {
+            border-color: #e74c3c !important;
+        }
+        
+        .success {
+            border-color: #2ecc71 !important;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        
+        .mensagem {
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .mensagem-sucesso {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .mensagem-erro {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .modo-escuro {
+            background-color: #121212 !important;
+            color: #f0f0f0 !important;
+        }
+        
+        .modo-escuro .questao-container {
+            background-color: #1e1e1e;
+            color: #f0f0f0;
+        }
+        
+        .modo-escuro .enunciado {
+            background-color: #2d2d2d;
+        }
+        
+        .modo-escuro button {
+            background-color: #555;
+        }
+        
+        .mostrar-senha {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+        
+        .mostrar-senha input {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .mostrar-senha label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navegação entre atividades -->
-    <div class="nav-container">
-        <div class="container nav-content">
-            <div class="logo">
-                <i class="fas fa-paint-brush"></i>
-                <span>Atividade Avaliativa</span>
-            </div>
-            <div class="nav-buttons">
-                <button class="nav-btn active" onclick="showActivity(1)">Atividade 1 - Flexbox</button>
-                <button class="nav-btn" onclick="showActivity(2)">Atividade 2 - CSS Grid</button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Header informativo -->
-    <div class="header">
-        <div class="container">
-            <h1>Desenvolvimento Web - Flexbox e CSS Grid</h1>
-            <p>Professor Jefferson Chaves | Atividade Avaliativa</p>
-            <p>Navegue entre as atividades usando os botões acima</p>
-        </div>
-    </div>
-    
     <div class="container">
-        <!-- ATIVIDADE 1: LOJA DE CARD GAMES -->
-        <div id="activity-1" class="activity-1 activity-content active">
-            <!-- Cabeçalho da loja -->
-            <div class="store-header">
-                <div class="container store-header-content">
-                    <div class="store-logo">
-                        <i class="fas fa-dragon"></i>
-                        <span>Card Games Store</span>
-                    </div>
-                    
-                    <!-- Menu principal (desktop) -->
-                    <ul class="store-menu">
-                        <li><a href="#" class="active">Home</a></li>
-                        <li><a href="#">Quem Somos</a></li>
-                        <li><a href="#">Contato</a></li>
-                        <li><a href="#">Produtos</a></li>
-                        <li><a href="#">Promoções</a></li>
-                    </ul>
-                    
-                    <!-- Menu sanduíche (mobile) -->
-                    <div class="menu-responsive" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </div>
-                </div>
-                
-                <!-- Menu mobile expandido -->
-                <div class="menu-mobile" id="mobileMenu">
-                    <a href="#" class="active">Home</a>
-                    <a href="#">Quem Somos</a>
-                    <a href="#">Contato</a>
-                    <a href="#">Produtos</a>
-                    <a href="#">Promoções</a>
-                </div>
+        <!-- Navegação lateral -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h1>Atividade JavaScript</h1>
+                <p>Prof. Jefferson Chaves</p>
+                <p>Todas as questões</p>
             </div>
-            
-            <!-- Banner -->
-            <div class="store-banner">
-                <div class="container">
-                    <h1>Descubra o Mundo dos Card Games</h1>
-                    <p>Encontre as melhores cartas colecionáveis, decks completos e acessórios para seu jogo favorito. Coleção atualizada semanalmente!</p>
-                </div>
-            </div>
-            
-            <!-- Container principal -->
-            <div class="store-container">
-                <div class="cards-container">
-                    <h2>Cartas em Destaque</h2>
-                    
-                    <!-- Seção de cards -->
-                    <div class="cards">
-                        <!-- Card 1 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1611339555312-e607c8832c41?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Dragão Negro" class="card-img">
-                            <div class="card">
-                                <h3>Dragão Negro</h3>
-                                <p>Uma poderosa criatura das trevas com habilidades devastadoras. Esta carta rara é essencial para qualquer deck de trevas.</p>
-                                <p><strong>Tipo:</strong> Criatura - Dragão</p>
-                                <div class="card-price">R$ 89,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 2 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1598153346810-860daa814c4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mago do Caos" class="card-img">
-                            <div class="card">
-                                <h3>Mago do Caos</h3>
-                                <p>Feiticeiro lendário capaz de invocar magias de dimensões desconhecidas. Carta ultra rara com efeitos especiais.</p>
-                                <p><strong>Tipo:</strong> Feiticeiro - Mago</p>
-                                <div class="card-price">R$ 149,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 3 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Anjo Guardião" class="card-img">
-                            <div class="card">
-                                <h3>Anjo Guardião</h3>
-                                <p>Ser celestial que protege seu campo de batalha. Possui habilidades defensivas excepcionais e cura.</p>
-                                <p><strong>Tipo:</strong> Criatura - Anjo</p>
-                                <div class="card-price">R$ 74,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 4 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1546484475-7f7bd55792da?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Cavaleiro das Sombras" class="card-img">
-                            <div class="card">
-                                <h3>Cavaleiro das Sombras</h3>
-                                <p>Guerreiro místico que ataca silenciosamente. Excelente para estratégias furtivas e ataques surpresa.</p>
-                                <p><strong>Tipo:</strong> Criatura - Guerreiro</p>
-                                <div class="card-price">R$ 64,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 5 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1578632749014-ca77efd052eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Fênix Renascida" class="card-img">
-                            <div class="card">
-                                <h3>Fênix Renascida</h3>
-                                <p>Criatura lendária que renasce das cinzas. Retorna ao jogo quando destruída, tornando-a quase imortal.</p>
-                                <p><strong>Tipo:</strong> Criatura - Ave</p>
-                                <div class="card-price">R$ 119,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 6 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1625316708580-6e756e5b183b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Golem de Pedra" class="card-img">
-                            <div class="card">
-                                <h3>Golem de Pedra</h3>
-                                <p>Criatura de defesa com resistência extrema. Perfeita para proteger suas cartas mais valiosas.</p>
-                                <p><strong>Tipo:</strong> Criatura - Golem</p>
-                                <div class="card-price">R$ 54,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 7 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1611339555312-e607c8832c41?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sereia Encantadora" class="card-img">
-                            <div class="card">
-                                <h3>Sereia Encantadora</h3>
-                                <p>Ser marinho que controla as mentes dos oponentes. Habilidade especial de controle de criaturas.</p>
-                                <p><strong>Tipo:</strong> Criatura - Sereia</p>
-                                <div class="card-price">R$ 79,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                        
-                        <!-- Card 8 -->
-                        <div class="card-container">
-                            <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Lobo do Inverno" class="card-img">
-                            <div class="card">
-                                <h3>Lobo do Inverno</h3>
-                                <p>Fera ancestral dos territórios gelados. Ataques em grupo e habilidades de congelação.</p>
-                                <p><strong>Tipo:</strong> Criatura - Besta</p>
-                                <div class="card-price">R$ 69,90</div>
-                                <a href="#" class="card-btn">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Footer da loja -->
-            <div class="store-footer">
-                <div class="container store-footer-content">
-                    <div class="store-logo">
-                        <i class="fas fa-dragon"></i>
-                        <span>Card Games Store</span>
-                    </div>
-                    
-                    <div class="store-footer-links">
-                        <a href="#">Política de Privacidade</a>
-                        <a href="#">Termos de Uso</a>
-                        <a href="#">FAQ</a>
-                    </div>
-                    
-                    <div class="store-social-icons">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <p style="margin-top: 20px; opacity: 0.8;">&copy; 2023 Card Games Store. Todos os direitos reservados.</p>
-            </div>
-            
-            <!-- Explicação da atividade 1 -->
-            <div class="explanation">
-                <h3>Explicação da Atividade 1 - Flexbox e Media Queries</h3>
-                <p><strong>Objetivo:</strong> Criar uma loja de card games responsiva usando Flexbox e media queries.</p>
-                
-                <h4>Conceitos aplicados:</h4>
-                <ul>
-                    <li><strong>Flexbox:</strong> Utilizado para organizar os cards em linhas responsivas</li>
-                    <li><strong>Media Queries:</strong> Ajustam o layout para diferentes tamanhos de tela</li>
-                    <li><strong>Propriedade flex:</strong> Controla o crescimento, encolhimento e tamanho base dos elementos</li>
-                    <li><strong>Variáveis CSS:</strong> Usadas para manter consistência nas cores</li>
-                </ul>
-                
-                <h4>Breakpoints implementados:</h4>
-                <ul>
-                    <li><strong>&gt; 1200px:</strong> 4 cards por linha, fundo padrão</li>
-                    <li><strong>768px - 1200px:</strong> 3 cards por linha, fundo roxo (ametista)</li>
-                    <li><strong>576px - 768px:</strong> 2 cards por linha, fundo amarelo (girassol)</li>
-                    <li><strong>&lt; 576px:</strong> 1 card por linha, fundo laranja (cenoura), menu sanduíche</li>
-                </ul>
-                
-                <div class="code-block">
-                    /* Cálculo do tamanho dos cards */<br>
-                    .card-container {<br>
-                    &nbsp;&nbsp;flex: 0 0 calc(25% - 15px);<br>
-                    }<br><br>
-                    /* Explicação: <br>
-                    &nbsp;&nbsp;- 0: não cresce<br>
-                    &nbsp;&nbsp;- 0: não encolhe<br>
-                    &nbsp;&nbsp;- calc(25% - 15px): largura base de 25% menos 15px<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;para compensar o gap de 20px (10px de cada lado) */
-                </div>
-            </div>
-        </div>
+            <ul class="questoes-lista" id="navegacao">
+                <!-- Os itens serão preenchidos via JavaScript -->
+            </ul>
+        </nav>
         
-        <!-- ATIVIDADE 2: ARTE MONDRIAN COM CSS GRID -->
-        <div id="activity-2" class="activity-2 activity-content">
-            <!-- Cabeçalho da atividade 2 -->
-            <div class="art-header">
-                <div class="container">
-                    <h2>Piet Mondrian - Composição Abstrata</h2>
-                    <p>Uma interpretação moderna do estilo De Stijl usando CSS Grid</p>
+        <!-- Conteúdo principal -->
+        <main class="main-content" id="main-content">
+            <!-- Questão 1 -->
+            <section id="questao1" class="questao-container active">
+                <div class="questao-header">
+                    <h2>Questão 1</h2>
+                    <p>Uso do JavaScript no Frontend</p>
                 </div>
-            </div>
-            
-            <!-- Informações sobre o artista -->
-            <div class="artist-info">
-                <div class="container">
-                    <h3>Piet Mondrian (1872 – 1944)</h3>
-                    <p>Pintor holandês que se tornou uma das figuras mais influentes da arte abstrata no século XX. Fundador do movimento De Stijl ("O Estilo"), que defendia a arte baseada em formas geométricas puras e nas cores primárias (vermelho, azul e amarelo), combinadas com preto, branco e cinza.</p>
-                    <p>Suas obras mais conhecidas são compostas por retângulos delimitados por linhas pretas e preenchidos com cores primárias ou áreas brancas. Ele via essa redução como uma forma de expressar harmonia universal, quase como se fosse uma linguagem visual matemática.</p>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>O JavaScript pode ser usado tanto para aplicações Frontend quanto Backend. Faça uma breve pesquisa sobre qual o objetivo de se usar javascript em aplicações Frontend.</p>
                 </div>
-            </div>
-            
-            <!-- Container da obra de arte -->
-            <div class="art-container">
-                <div class="art-title">"Composição com Vermelho, Azul e Amarelo" - Interpretação Digital</div>
-                
-                <!-- Obra de arte principal com CSS Grid -->
-                <div class="mondrian-grid">
-                    <div class="cell cell-1"></div>
-                    <div class="cell cell-2"></div>
-                    <div class="cell cell-3"></div>
-                    <div class="cell cell-4"></div>
-                    <div class="cell cell-5"></div>
-                    <div class="cell cell-6"></div>
-                    <div class="cell cell-7"></div>
-                    <div class="cell cell-8"></div>
-                    <div class="cell cell-9"></div>
-                    <div class="cell cell-10"></div>
-                    <div class="cell cell-11"></div>
-                    <div class="cell cell-12"></div>
-                    <div class="cell cell-13"></div>
-                    <div class="cell cell-14"></div>
-                    <div class="cell cell-15"></div>
-                    <div class="cell cell-16"></div>
-                    <div class="cell cell-17"></div>
-                    <div class="cell cell-18"></div>
-                </div>
-                
-                <!-- Legenda das cores -->
-                <div class="color-legend">
-                    <div class="color-item">
-                        <div class="color-box mondrian-red"></div>
-                        <span>Vermelho (Primary Red)</span>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box mondrian-blue"></div>
-                        <span>Azul (Primary Blue)</span>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box mondrian-yellow"></div>
-                        <span>Amarelo (Primary Yellow)</span>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box mondrian-white"></div>
-                        <span>Branco (White Space)</span>
-                    </div>
-                    <div class="color-item">
-                        <div class="color-box mondrian-black"></div>
-                        <span>Preto (Grid Lines)</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Demonstração de grid simples -->
-            <div class="grid-demo">
-                <div class="container">
-                    <h3>Exemplo de Grid CSS - 4x3</h3>
-                    <div class="simple-grid">
-                        <div class="simple-cell mondrian-red" style="grid-column: 1 / 3;">Célula 1-2</div>
-                        <div class="simple-cell mondrian-blue" style="grid-column: 3 / 4;">Célula 3</div>
-                        <div class="simple-cell mondrian-yellow" style="grid-column: 4 / 5;">Célula 4</div>
-                        
-                        <div class="simple-cell mondrian-black" style="grid-column: 1 / 2; grid-row: 2 / 4;">Célula A</div>
-                        <div class="simple-cell mondrian-white" style="color: #333; grid-column: 2 / 4; grid-row: 2 / 3;">Célula B</div>
-                        <div class="simple-cell mondrian-red" style="grid-column: 4 / 5; grid-row: 2 / 4;">Célula C</div>
-                        
-                        <div class="simple-cell mondrian-blue" style="grid-column: 2 / 3; grid-row: 3 / 4;">Célula D</div>
-                        <div class="simple-cell mondrian-yellow" style="grid-column: 3 / 4; grid-row: 3 / 4;">Célula E</div>
-                    </div>
-                    
-                    <div class="grid-explanation">
-                        <p><strong>Conceitos de CSS Grid aplicados:</strong></p>
+                <div class="implementacao">
+                    <h3>Resposta:</h3>
+                    <div class="resultado">
+                        <p>O JavaScript é uma linguagem essencial para o desenvolvimento Frontend, responsável por:</p>
                         <ul>
-                            <li><strong>grid-template-columns:</strong> define o número e tamanho das colunas</li>
-                            <li><strong>grid-template-rows:</strong> define o número e tamanho das linhas</li>
-                            <li><strong>grid-column:</strong> define onde uma célula começa e termina horizontalmente</li>
-                            <li><strong>grid-row:</strong> define onde uma célula começa e termina verticalmente</li>
-                            <li><strong>gap:</strong> espaçamento entre as células da grade</li>
-                            <li><strong>fr units:</strong> unidade fracionária que distribui o espaço disponível</li>
+                            <li>Criar interatividade em páginas web (como botões, formulários, animações)</li>
+                            <li>Manipular o DOM (Document Object Model) dinamicamente</li>
+                            <li>Validar dados de formulários no lado do cliente</li>
+                            <li>Fazer requisições assíncronas (AJAX) para buscar/atualizar dados sem recarregar a página</li>
+                            <li>Criar Single Page Applications (SPAs) com frameworks como React, Vue ou Angular</li>
+                            <li>Armazenar dados localmente no navegador (LocalStorage, SessionStorage)</li>
+                            <li>Implementar funcionalidades complexas como arrastar e soltar, geolocalização, etc.</li>
+                            <li>Criar jogos e aplicações web ricas diretamente no navegador</li>
                         </ul>
                     </div>
                 </div>
-            </div>
+            </section>
             
-            <!-- Explicação da atividade 2 -->
-            <div class="explanation">
-                <h3>Explicação da Atividade 2 - CSS Grid (Arte Mondrian)</h3>
-                <p><strong>Objetivo:</strong> Criar uma obra de arte inspirada em Piet Mondrian usando CSS Grid.</p>
-                
-                <h4>Conceitos aplicados:</h4>
-                <ul>
-                    <li><strong>CSS Grid Layout:</strong> Sistema bidimensional para criar layouts complexos</li>
-                    <li><strong>Grid de 12x12:</strong> Grade complexa que permite composições sofisticadas</li>
-                    <li><strong>Cores primárias:</strong> Vermelho, azul e amarelo conforme o estilo De Stijl</li>
-                    <li><strong>Controle preciso:</strong> Cada célula é posicionada exatamente com grid-column e grid-row</li>
-                </ul>
-                
-                <h4>Código da grade principal:</h4>
-                <div class="code-block">
-                    .mondrian-grid {<br>
-                    &nbsp;&nbsp;display: grid;<br>
-                    &nbsp;&nbsp;grid-template-columns: repeat(12, 1fr);<br>
-                    &nbsp;&nbsp;grid-template-rows: repeat(12, 1fr);<br>
-                    &nbsp;&nbsp;gap: 8px;<br>
-                    &nbsp;&nbsp;height: 600px;<br>
-                    }<br><br>
-                    /* Posicionamento de uma célula específica */<br>
-                    .cell-1 {<br>
-                    &nbsp;&nbsp;grid-column: 1 / 4;  /* da linha 1 à linha 4 */<br>
-                    &nbsp;&nbsp;grid-row: 1 / 3;     /* da linha 1 à linha 3 */<br>
-                    }
+            <!-- Questão 2 -->
+            <section id="questao2" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 2</h2>
+                    <p>Manipulação do DOM no site globo.com</p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Footer da página -->
-        <div class="page-footer">
-            <div class="container">
-                <p>Atividade Avaliativa - Desenvolvimento Web</p>
-                <p>Professor Jefferson Chaves | IFPR</p>
-                <p>Todos os conceitos de Flexbox e CSS Grid foram aplicados conforme solicitado</p>
-            </div>
-        </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Acesse o site globo.com. Abra e a ferramenta devtools:</p>
+                    <ol>
+                        <li>Na guia console digite o comando: document.querySelector('.post__title').textContent = 'seu texto aqui'</li>
+                        <li>Mude o conteúdo para uma notícia que você gostaria que acontecesse</li>
+                        <li>Mude a imagem da notícia, alterando o atributo srcset da imagem para uma imagem qualquer disponível na web</li>
+                        <li>Tire um screenshot</li>
+                    </ol>
+                </div>
+                <div class="implementacao">
+                    <h3>Simulação:</h3>
+                    <p><em>Observação: Como não podemos acessar sites externos diretamente, esta é uma simulação do que seria feito.</em></p>
+                    
+                    <div class="resultado">
+                        <h4>Código que seria executado no console:</h4>
+                        <div class="codigo">
+// Alterar título da notícia<br>
+document.querySelector('.post__title').textContent = 'Brasil Ganha Medalha de Ouro em Todos os Esportes nas Olimpíadas 2024';<br><br>
+// Alterar imagem (exemplo com seletor genérico)<br>
+document.querySelector('img').srcset = 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop';
+                        </div>
+                        
+                        <h4>Resultado simulado:</h4>
+                        <div class="imagem-container">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="Notícia simulada">
+                            <p><strong>Título:</strong> Brasil Ganha Medalha de Ouro em Todos os Esportes nas Olimpíadas 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Questão 3 -->
+            <section id="questao3" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 3</h2>
+                    <p>Modificar elemento H1 dinamicamente</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Faça um programa que modifique um elemento h1 presente em um documento html. Por meio do Javascript, devem ser alterados sua cor, tamanho e texto; O tamanho do texto deve ser aleatório, permitindo valores entre 30 e 100 pixels a cada atualização da página.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <div class="controles">
+                        <button id="atualizarH1">Atualizar H1 (Recarregar efeito)</button>
+                        <button id="resetH1">Resetar para original</button>
+                    </div>
+                    
+                    <h1 id="h1Modificavel" style="text-align: center; margin: 20px 0; transition: all 0.3s;">Texto Original do H1</h1>
+                    
+                    <div class="resultado">
+                        <p id="infoH1">Tamanho atual: 32px | Cor atual: preto</p>
+                    </div>
+                    
+                    <script>
+                        // Questão 3
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const h1 = document.getElementById('h1Modificavel');
+                            const btnAtualizar = document.getElementById('atualizarH1');
+                            const btnReset = document.getElementById('resetH1');
+                            const info = document.getElementById('infoH1');
+                            
+                            // Função para gerar cor aleatória
+                            function gerarCorAleatoria() {
+                                const r = Math.floor(Math.random() * 256);
+                                const g = Math.floor(Math.random() * 256);
+                                const b = Math.floor(Math.random() * 256);
+                                return `rgb(${r}, ${g}, ${b})`;
+                            }
+                            
+                            // Função para atualizar o H1
+                            function atualizarH1() {
+                                // Gerar tamanho aleatório entre 30 e 100 pixels
+                                const tamanhoAleatorio = Math.floor(Math.random() * 71) + 30;
+                                const corAleatoria = gerarCorAleatoria();
+                                
+                                // Alterar propriedades do h1
+                                h1.textContent = 'Título Modificado por JavaScript!';
+                                h1.style.color = corAleatoria;
+                                h1.style.fontSize = tamanhoAleatorio + 'px';
+                                h1.style.fontFamily = 'Arial, sans-serif';
+                                
+                                // Atualizar informações
+                                info.textContent = `Tamanho atual: ${tamanhoAleatorio}px | Cor atual: ${corAleatoria}`;
+                            }
+                            
+                            // Função para resetar o H1
+                            function resetarH1() {
+                                h1.textContent = 'Texto Original do H1';
+                                h1.style.color = '';
+                                h1.style.fontSize = '';
+                                h1.style.fontFamily = '';
+                                info.textContent = 'Tamanho atual: 32px | Cor atual: preto';
+                            }
+                            
+                            // Event listeners
+                            btnAtualizar.addEventListener('click', atualizarH1);
+                            btnReset.addEventListener('click', resetarH1);
+                            
+                            // Atualizar inicialmente
+                            atualizarH1();
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 4 -->
+            <section id="questao4" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 4</h2>
+                    <p>Contador com botões</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Crie um botão e um parágrafo com valor inicial de 0, que servirá de contador. Adicione um listener ao botão que incremente o contador a cada clique. Crie outro botão que permita zerar o contador.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <h2>Contador de Cliques</h2>
+                    <p id="contador" style="font-size: 2rem; font-weight: bold; text-align: center; margin: 20px 0;">0</p>
+                    
+                    <div class="controles">
+                        <button id="incrementar">Incrementar (+1)</button>
+                        <button id="decrementar">Decrementar (-1)</button>
+                        <button id="zerarContador">Zerar Contador</button>
+                    </div>
+                    
+                    <script>
+                        // Questão 4
+                        document.addEventListener('DOMContentLoaded', function() {
+                            let contador = 0;
+                            const elementoContador = document.getElementById('contador');
+                            const botaoIncrementar = document.getElementById('incrementar');
+                            const botaoDecrementar = document.getElementById('decrementar');
+                            const botaoZerar = document.getElementById('zerarContador');
+                            
+                            // Função para atualizar o contador
+                            function atualizarContador() {
+                                elementoContador.textContent = contador;
+                                // Mudar cor baseado no valor
+                                if (contador > 0) {
+                                    elementoContador.style.color = '#27ae60';
+                                } else if (contador < 0) {
+                                    elementoContador.style.color = '#e74c3c';
+                                } else {
+                                    elementoContador.style.color = '#2c3e50';
+                                }
+                            }
+                            
+                            // Event listeners
+                            botaoIncrementar.addEventListener('click', function() {
+                                contador++;
+                                atualizarContador();
+                            });
+                            
+                            botaoDecrementar.addEventListener('click', function() {
+                                contador--;
+                                atualizarContador();
+                            });
+                            
+                            botaoZerar.addEventListener('click', function() {
+                                contador = 0;
+                                atualizarContador();
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 5 -->
+            <section id="questao5" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 5</h2>
+                    <p>Adicionar itens a uma lista dinamicamente</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Crie um botão que, ao ser clicado, crie e insira um novo item de lista (&lt;li&gt;) em uma lista existente na página. Use o método document.createElement() para criar um novo elemento e método appendChild() para inserir o elemento recém criado na lista. Cada item novo, deve ser inserido com o texto "Item n° X", em que x é um número do elemento na lista.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <h3>Lista de Itens</h3>
+                    <ul id="minhaLista" class="lista-dinamica">
+                        <li>Item n° 1</li>
+                        <li>Item n° 2</li>
+                    </ul>
+                    
+                    <div class="controles">
+                        <button id="adicionarItem">Adicionar Novo Item</button>
+                        <button id="removerUltimoItem">Remover Último Item</button>
+                        <button id="limparLista">Limpar Lista</button>
+                    </div>
+                    
+                    <p id="infoLista">Total de itens na lista: 2</p>
+                    
+                    <script>
+                        // Questão 5
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const lista = document.getElementById('minhaLista');
+                            const botaoAdicionar = document.getElementById('adicionarItem');
+                            const botaoRemover = document.getElementById('removerUltimoItem');
+                            const botaoLimpar = document.getElementById('limparLista');
+                            const infoLista = document.getElementById('infoLista');
+                            
+                            // Atualizar contador de itens
+                            function atualizarContadorLista() {
+                                const totalItens = lista.children.length;
+                                infoLista.textContent = `Total de itens na lista: ${totalItens}`;
+                            }
+                            
+                            // Adicionar item
+                            botaoAdicionar.addEventListener('click', function() {
+                                const totalItens = lista.children.length + 1;
+                                const novoItem = document.createElement('li');
+                                novoItem.textContent = `Item n° ${totalItens}`;
+                                lista.appendChild(novoItem);
+                                atualizarContadorLista();
+                            });
+                            
+                            // Remover último item
+                            botaoRemover.addEventListener('click', function() {
+                                if (lista.children.length > 0) {
+                                    lista.removeChild(lista.lastChild);
+                                    atualizarContadorLista();
+                                }
+                            });
+                            
+                            // Limpar lista
+                            botaoLimpar.addEventListener('click', function() {
+                                while (lista.firstChild) {
+                                    lista.removeChild(lista.firstChild);
+                                }
+                                atualizarContadorLista();
+                            });
+                            
+                            // Inicializar contador
+                            atualizarContadorLista();
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 6 -->
+            <section id="questao6" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 6</h2>
+                    <p>Gerador de Nomes de Aventuras</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Crie um gerador de nome de aventuras. Você deve gerar um nome baseado nas listas de opções. Crie um botão que quando clicado gera um nome de aventura aleatoriamente.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <div style="text-align: center; background-color: #f9f3e9; padding: 30px; border-radius: 10px; border: 2px solid #8b4513;">
+                        <h1 style="color: #8b4513; margin-bottom: 20px;">Gerador de Nomes de Aventuras</h1>
+                        <button id="gerarNome" style="padding: 12px 24px; font-size: 18px; background-color: #8b4513; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Gerar Novo Nome
+                        </button>
+                        <div id="nomeAventura" style="font-size: 24px; color: #8b4513; font-weight: bold; margin: 30px 0; padding: 20px; background-color: white; border-radius: 8px; border: 1px solid #d4b896;">
+                            Mister Éowyn, o Paladino de Gondor
+                        </div>
+                    </div>
+                    
+                    <div class="resultado">
+                        <h4>Listas utilizadas:</h4>
+                        <div class="codigo">
+const titles = ["Sr.", "Mister", "Dom", "Lord", "Lady", "Capitão", "Dama"];<br>
+const names = ["Arthur", "Gwendolyn", "Merlin", "Lancelot", "Morgana", "Ragnar", "Éowyn"];<br>
+const classes = ["Mago", "Paladino", "Arqueiro", "Ladino", "Bárbaro", "Feiticeiro", "Cavaleiro"];<br>
+const locations = ["Valfenda", "Gondor", "Asgard", "Camelot", "Nárnia", "Babilônia", "Atlantis"];
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Questão 6
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const titles = ["Sr.", "Mister", "Dom", "Lord", "Lady", "Capitão", "Dama"];
+                            const names = ["Arthur", "Gwendolyn", "Merlin", "Lancelot", "Morgana", "Ragnar", "Éowyn"];
+                            const classes = ["Mago", "Paladino", "Arqueiro", "Ladino", "Bárbaro", "Feiticeiro", "Cavaleiro"];
+                            const locations = ["Valfenda", "Gondor", "Asgard", "Camelot", "Nárnia", "Babilônia", "Atlantis"];
+                            
+                            const btnGerar = document.getElementById('gerarNome');
+                            const nomeAventura = document.getElementById('nomeAventura');
+                            
+                            function gerarNomeAleatorio() {
+                                const titulo = titles[Math.floor(Math.random() * titles.length)];
+                                const nome = names[Math.floor(Math.random() * names.length)];
+                                const classe = classes[Math.floor(Math.random() * classes.length)];
+                                const local = locations[Math.floor(Math.random() * locations.length)];
+                                
+                                return `${titulo} ${nome}, o ${classe} de ${local}`;
+                            }
+                            
+                            btnGerar.addEventListener('click', function() {
+                                nomeAventura.textContent = gerarNomeAleatorio();
+                                // Efeito visual
+                                nomeAventura.style.transform = 'scale(1.05)';
+                                setTimeout(() => {
+                                    nomeAventura.style.transform = 'scale(1)';
+                                }, 200);
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 7 -->
+            <section id="questao7" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 7</h2>
+                    <p>Gravity Falls - Eventos de Mouse</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Gravity Falls: Um Verão de Mistérios é uma série animada. Escolha uma imagem do personagem da animação e insira em uma página HTML. O personagem escolhido deve responder com frases aos eventos de mouseenter, mouseleave, mousemove e click.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <div style="text-align: center;">
+                        <h3>Gravity Falls - Dipper Pines</h3>
+                        <div id="personagem" style="width: 300px; height: 350px; margin: 20px auto; border: 2px solid #333; border-radius: 10px; background-color: #e8f4f8; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: all 0.3s; padding: 20px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Dipper_Pines.png/234px-Dipper_Pines.png" alt="Dipper Pines" id="dipper" style="max-width: 200px; max-height: 200px;">
+                            <p style="margin-top: 15px; font-weight: bold;">Passe o mouse sobre mim!</p>
+                        </div>
+                        <div id="frase" style="margin-top: 20px; font-size: 18px; color: #333; min-height: 50px; padding: 10px; background-color: #f0f0f0; border-radius: 5px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            Interaja com o Dipper!
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Questão 7
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const personagem = document.getElementById('personagem');
+                            const frase = document.getElementById('frase');
+                            const imagem = document.getElementById('dipper');
+                            
+                            // Fallback caso a imagem não carregue
+                            imagem.onerror = function() {
+                                this.src = 'https://via.placeholder.com/200x200/3498db/ffffff?text=Dipper+Pines';
+                            };
+                            
+                            personagem.addEventListener('mouseenter', function() {
+                                frase.textContent = "Ei! Você está me observando?";
+                                personagem.style.backgroundColor = '#d1ecf1';
+                                personagem.style.borderColor = '#17a2b8';
+                            });
+                            
+                            personagem.addEventListener('mouseleave', function() {
+                                frase.textContent = "Ah, você foi embora...";
+                                personagem.style.backgroundColor = '#e8f4f8';
+                                personagem.style.borderColor = '#333';
+                            });
+                            
+                            personagem.addEventListener('mousemove', function(event) {
+                                const rect = personagem.getBoundingClientRect();
+                                const x = event.clientX - rect.left;
+                                const y = event.clientY - rect.top;
+                                frase.textContent = `Mouse em X:${Math.floor(x)}, Y:${Math.floor(y)} - Dipper está observando você também!`;
+                            });
+                            
+                            personagem.addEventListener('click', function() {
+                                frase.textContent = "Grrr-avitty Falls! Vamos desvendar mistérios!";
+                                personagem.style.transform = 'scale(1.05)';
+                                personagem.style.boxShadow = '0 0 15px rgba(52, 152, 219, 0.7)';
+                                
+                                setTimeout(() => {
+                                    personagem.style.transform = 'scale(1)';
+                                    personagem.style.boxShadow = 'none';
+                                }, 300);
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 8 -->
+            <section id="questao8" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 8</h2>
+                    <p>Verificador de Texto com Input</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Faça um programa que identifique o texto digitado por um usuário em um campo do tipo &lt;input&gt;. A medida que o usuário digitar, você deve verificar se o texto contém a quantidade de letras na palavra. Caso seja maior que 3, o conteúdo deve ser verificado e exibir frases específicas para "chocolate" ou "flocos".</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <h3>Qual seu sabor de sorvete favorito?</h3>
+                    <input type="text" id="saborInput" placeholder="Digite um sabor de sorvete..." style="width: 100%; padding: 12px; font-size: 16px; margin: 10px 0;">
+                    
+                    <div id="resultadoSabor" style="margin-top: 20px; padding: 15px; border-radius: 5px; font-weight: bold; min-height: 60px; display: flex; align-items: center; justify-content: center;">
+                        Digite um sabor acima...
+                    </div>
+                    
+                    <script>
+                        // Questão 8
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const input = document.getElementById('saborInput');
+                            const resultado = document.getElementById('resultadoSabor');
+                            
+                            input.addEventListener('input', function() {
+                                const texto = this.value.toLowerCase().trim();
+                                
+                                if (texto.length > 3) {
+                                    if (texto.includes('chocolate')) {
+                                        resultado.textContent = "Eu amo sorvete de chocolate! 🍫";
+                                        resultado.style.backgroundColor = '#8b4513';
+                                        resultado.style.color = 'white';
+                                    } else if (texto.includes('flocos')) {
+                                        resultado.textContent = "Ahh, mas chocolate é o meu favorito... 😉";
+                                        resultado.style.backgroundColor = '#f0f0f0';
+                                        resultado.style.color = '#333';
+                                    } else {
+                                        resultado.textContent = "Ahh, eu esperava um sabor de sorvete... 🍦";
+                                        resultado.style.backgroundColor = '#ffeb3b';
+                                        resultado.style.color = '#333';
+                                    }
+                                } else {
+                                    resultado.textContent = "Digite um sabor acima... (precisa ter mais de 3 letras)";
+                                    resultado.style.backgroundColor = '#f8f9fa';
+                                    resultado.style.color = '#6c757d';
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 9 -->
+            <section id="questao9" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 9</h2>
+                    <p>Modo Escuro</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Faça com que o exercício anterior tenha um modo escuro.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <div class="controles">
+                        <button id="toggleModo">Alternar Modo Escuro</button>
+                    </div>
+                    
+                    <div id="containerModoEscuro" style="margin-top: 20px; padding: 25px; border-radius: 8px; background-color: white; color: #333; transition: all 0.3s;">
+                        <h3>Verificador de Sabores com Modo Escuro</h3>
+                        <p>Digite um sabor de sorvete para testar:</p>
+                        
+                        <input type="text" id="saborInputModoEscuro" placeholder="Digite um sabor de sorvete..." style="width: 100%; padding: 12px; font-size: 16px; margin: 10px 0; background-color: white; color: #333; border: 1px solid #ccc;">
+                        
+                        <div id="resultadoModoEscuro" style="margin-top: 20px; padding: 15px; border-radius: 5px; font-weight: bold; min-height: 60px;">
+                            Digite um sabor acima...
+                        </div>
+                    </div>
+                    
+                    <script>
+                        // Questão 9
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const toggleBtn = document.getElementById('toggleModo');
+                            const container = document.getElementById('containerModoEscuro');
+                            const input = document.getElementById('saborInputModoEscuro');
+                            const resultado = document.getElementById('resultadoModoEscuro');
+                            let modoEscuroAtivo = false;
+                            
+                            // Alternar modo escuro
+                            toggleBtn.addEventListener('click', function() {
+                                modoEscuroAtivo = !modoEscuroAtivo;
+                                
+                                if (modoEscuroAtivo) {
+                                    container.style.backgroundColor = '#121212';
+                                    container.style.color = '#f0f0f0';
+                                    input.style.backgroundColor = '#333';
+                                    input.style.color = '#f0f0f0';
+                                    input.style.borderColor = '#555';
+                                    resultado.style.backgroundColor = '#2d2d2d';
+                                    resultado.style.color = '#f0f0f0';
+                                    toggleBtn.textContent = 'Alternar Modo Claro';
+                                } else {
+                                    container.style.backgroundColor = 'white';
+                                    container.style.color = '#333';
+                                    input.style.backgroundColor = 'white';
+                                    input.style.color = '#333';
+                                    input.style.borderColor = '#ccc';
+                                    resultado.style.backgroundColor = '#f8f9fa';
+                                    resultado.style.color = '#333';
+                                    toggleBtn.textContent = 'Alternar Modo Escuro';
+                                }
+                            });
+                            
+                            // Verificador de sabor
+                            input.addEventListener('input', function() {
+                                const texto = this.value.toLowerCase().trim();
+                                
+                                if (texto.length > 3) {
+                                    if (texto.includes('chocolate')) {
+                                        resultado.textContent = "Eu amo sorvete de chocolate! 🍫";
+                                        if (modoEscuroAtivo) {
+                                            resultado.style.backgroundColor = '#5d4037';
+                                        } else {
+                                            resultado.style.backgroundColor = '#8b4513';
+                                            resultado.style.color = 'white';
+                                        }
+                                    } else if (texto.includes('flocos')) {
+                                        resultado.textContent = "Ahh, mas chocolate é o meu favorito... 😉";
+                                        if (modoEscuroAtivo) {
+                                            resultado.style.backgroundColor = '#424242';
+                                        } else {
+                                            resultado.style.backgroundColor = '#f0f0f0';
+                                            resultado.style.color = '#333';
+                                        }
+                                    } else {
+                                        resultado.textContent = "Ahh, eu esperava um sabor de sorvete... 🍦";
+                                        if (modoEscuroAtivo) {
+                                            resultado.style.backgroundColor = '#665c00';
+                                        } else {
+                                            resultado.style.backgroundColor = '#ffeb3b';
+                                            resultado.style.color = '#333';
+                                        }
+                                    }
+                                } else {
+                                    resultado.textContent = "Digite um sabor acima... (precisa ter mais de 3 letras)";
+                                    if (modoEscuroAtivo) {
+                                        resultado.style.backgroundColor = '#2d2d2d';
+                                        resultado.style.color = '#aaa';
+                                    } else {
+                                        resultado.style.backgroundColor = '#f8f9fa';
+                                        resultado.style.color = '#6c757d';
+                                    }
+                                }
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 10 -->
+            <section id="questao10" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 10</h2>
+                    <p>Slideshow de Imagens</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>O site https://picsum.photos/ disponibiliza imagens para fins de teste. Crie um array com imagens e uma função chamada trocarImagem que usando a função setTimeout troque a imagem a cada cinco segundos. A função deve ser usada de forma recursiva.</p>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <div class="slideshow">
+                        <img id="imagemSlideshow" src="https://picsum.photos/id/237/600/400" alt="Slideshow" style="width: 100%;">
+                    </div>
+                    
+                    <div class="controles" style="justify-content: center; margin-top: 20px;">
+                        <button id="anteriorImg">Anterior</button>
+                        <button id="pausarImg">Pausar</button>
+                        <button id="proximaImg">Próxima</button>
+                    </div>
+                    
+                    <p id="contadorSlideshow" style="text-align: center; margin-top: 10px; font-weight: bold;">Imagem 1 de 4</p>
+                    
+                    <script>
+                        // Questão 10
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const imagens = [
+                                "https://picsum.photos/id/237/600/400",
+                                "https://picsum.photos/id/238/600/400",
+                                "https://picsum.photos/id/239/600/400",
+                                "https://picsum.photos/id/240/600/400"
+                            ];
+                            
+                            let indiceAtual = 0;
+                            let intervalo;
+                            let pausado = false;
+                            
+                            const imagemSlideshow = document.getElementById('imagemSlideshow');
+                            const contador = document.getElementById('contadorSlideshow');
+                            const btnAnterior = document.getElementById('anteriorImg');
+                            const btnPausar = document.getElementById('pausarImg');
+                            const btnProxima = document.getElementById('proximaImg');
+                            
+                            function atualizarImagem() {
+                                imagemSlideshow.src = imagens[indiceAtual];
+                                contador.textContent = `Imagem ${indiceAtual + 1} de ${imagens.length}`;
+                            }
+                            
+                            function proximaImagem() {
+                                indiceAtual = (indiceAtual + 1) % imagens.length;
+                                atualizarImagem();
+                            }
+                            
+                            function imagemAnterior() {
+                                indiceAtual = (indiceAtual - 1 + imagens.length) % imagens.length;
+                                atualizarImagem();
+                            }
+                            
+                            function trocarImagem() {
+                                if (!pausado) {
+                                    proximaImagem();
+                                }
+                                setTimeout(trocarImagem, 5000);
+                            }
+                            
+                            // Iniciar slideshow
+                            trocarImagem();
+                            
+                            // Event listeners para os controles
+                            btnProxima.addEventListener('click', proximaImagem);
+                            btnAnterior.addEventListener('click', imagemAnterior);
+                            
+                            btnPausar.addEventListener('click', function() {
+                                pausado = !pausado;
+                                this.textContent = pausado ? 'Continuar' : 'Pausar';
+                            });
+                            
+                            // Inicializar
+                            atualizarImagem();
+                        });
+                    </script>
+                </div>
+            </section>
+            
+            <!-- Questão 11 -->
+            <section id="questao11" class="questao-container">
+                <div class="questao-header">
+                    <h2>Questão 11</h2>
+                    <p>Validação de Formulário de Cadastro</p>
+                </div>
+                <div class="enunciado">
+                    <h3>Enunciado:</h3>
+                    <p>Faça um programa que valide um formulário de cadastro com os campos nome, e-mail, senha e confirmação de senha. Validações:</p>
+                    <ol>
+                        <li>Nome deve possuir ao menos 3 caracteres</li>
+                        <li>E-mail deve ser válido (usar regex)</li>
+                        <li>Senha deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial</li>
+                        <li>Senha e confirmação devem ser idênticas</li>
+                        <li>Criar um mecanismo "mostrar a senha"</li>
+                    </ol>
+                </div>
+                <div class="implementacao">
+                    <h3>Implementação:</h3>
+                    <form id="formCadastro" style="max-width: 500px; margin: 0 auto;">
+                        <div class="form-group">
+                            <label for="nomeCadastro">Nome:</label>
+                            <input type="text" id="nomeCadastro" placeholder="Digite seu nome">
+                            <div class="error-message" id="erroNome"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="emailCadastro">E-mail:</label>
+                            <input type="email" id="emailCadastro" placeholder="Digite seu e-mail">
+                            <div class="error-message" id="erroEmail"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="senhaCadastro">Senha:</label>
+                            <input type="password" id="senhaCadastro" placeholder="Digite sua senha">
+                            <div class="error-message" id="erroSenha"></div>
+                            <div class="mostrar-senha">
+                                <input type="checkbox" id="mostrarSenhaCadastro">
+                                <label for="mostrarSenhaCadastro">Mostrar senha</label>
+                            </div>
+                            <small style="color: #666; display: block; margin-top: 5px;">A senha deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirmarSenhaCadastro">Confirmar Senha:</label>
+                            <input type="password" id="confirmarSenhaCadastro" placeholder="Confirme sua senha">
+                            <div class="error-message" id="erroConfirmarSenha"></div>
+                            <div class="mostrar-senha">
+                                <input type="checkbox" id="mostrarConfirmarSenhaCadastro">
+                                <label for="mostrarConfirmarSenhaCadastro">Mostrar senha</label>
+                            </div>
+                        </div>
+                        
+                        <div class="controles">
+                            <button type="submit">Cadastrar</button>
+                            <button type="button" id="limparFormulario">Limpar Formulário</button>
+                        </div>
+                    </form>
+                    
+                    <div id="mensagemFormulario" class="mensagem" style="display: none;"></div>
+                    
+                    <script>
+                        // Questão 11
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Expressões regulares corrigidas
+                            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                            const senhaRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9])[A-Za-z\d!@#$%^&*]{8,}$/;
+                            
+                            // Elementos do DOM
+                            const form = document.getElementById('formCadastro');
+                            const mensagem = document.getElementById('mensagemFormulario');
+                            const mostrarSenhaCheckbox = document.getElementById('mostrarSenhaCadastro');
+                            const mostrarConfirmarSenhaCheckbox = document.getElementById('mostrarConfirmarSenhaCadastro');
+                            
+                            // Mostrar/ocultar senha
+                            mostrarSenhaCheckbox.addEventListener('change', function() {
+                                const senhaInput = document.getElementById('senhaCadastro');
+                                senhaInput.type = this.checked ? 'text' : 'password';
+                            });
+                            
+                            mostrarConfirmarSenhaCheckbox.addEventListener('change', function() {
+                                const confirmarSenhaInput = document.getElementById('confirmarSenhaCadastro');
+                                confirmarSenhaInput.type = this.checked ? 'text' : 'password';
+                            });
+                            
+                            // Validar formulário
+                            form.addEventListener('submit', function(event) {
+                                event.preventDefault();
+                                
+                                let valido = true;
+                                
+                                // Validar nome
+                                const nome = document.getElementById('nomeCadastro');
+                                const erroNome = document.getElementById('erroNome');
+                                if (nome.value.length < 3) {
+                                    nome.classList.add('error');
+                                    nome.classList.remove('success');
+                                    erroNome.textContent = 'O nome deve ter pelo menos 3 caracteres';
+                                    valido = false;
+                                } else {
+                                    nome.classList.remove('error');
+                                    nome.classList.add('success');
+                                    erroNome.textContent = '';
+                                }
+                                
+                                // Validar email
+                                const email = document.getElementById('emailCadastro');
+                                const erroEmail = document.getElementById('erroEmail');
+                                if (!emailRegex.test(email.value)) {
+                                    email.classList.add('error');
+                                    email.classList.remove('success');
+                                    erroEmail.textContent = 'Por favor, insira um e-mail válido';
+                                    valido = false;
+                                } else {
+                                    email.classList.remove('error');
+                                    email.classList.add('success');
+                                    erroEmail.textContent = '';
+                                }
+                                
+                                // Validar senha
+                                const senha = document.getElementById('senhaCadastro');
+                                const erroSenha = document.getElementById('erroSenha');
+                                if (!senhaRegex.test(senha.value)) {
+                                    senha.classList.add('error');
+                                    senha.classList.remove('success');
+                                    erroSenha.textContent = 'A senha não atende aos requisitos de segurança';
+                                    valido = false;
+                                } else {
+                                    senha.classList.remove('error');
+                                    senha.classList.add('success');
+                                    erroSenha.textContent = '';
+                                }
+                                
+                                // Validar confirmação de senha
+                                const confirmarSenha = document.getElementById('confirmarSenhaCadastro');
+                                const erroConfirmarSenha = document.getElementById('erroConfirmarSenha');
+                                if (senha.value !== confirmarSenha.value) {
+                                    confirmarSenha.classList.add('error');
+                                    confirmarSenha.classList.remove('success');
+                                    erroConfirmarSenha.textContent = 'As senhas não coincidem';
+                                    valido = false;
+                                } else {
+                                    confirmarSenha.classList.remove('error');
+                                    confirmarSenha.classList.add('success');
+                                    erroConfirmarSenha.textContent = '';
+                                }
+                                
+                                // Exibir mensagem
+                                if (valido) {
+                                    mensagem.textContent = 'Cadastro realizado com sucesso!';
+                                    mensagem.className = 'mensagem mensagem-sucesso';
+                                    mensagem.style.display = 'block';
+                                } else {
+                                    mensagem.textContent = 'Por favor, corrija os erros no formulário.';
+                                    mensagem.className = 'mensagem mensagem-erro';
+                                    mensagem.style.display = 'block';
+                                }
+                            });
+                            
+                            // Limpar formulário
+                            document.getElementById('limparFormulario').addEventListener('click', function() {
+                                form.reset();
+                                mensagem.style.display = 'none';
+                                
+                                // Limpar estilos e mensagens de erro
+                                const inputs = form.querySelectorAll('input');
+                                const erros = form.querySelectorAll('.error-message');
+                                
+                                inputs.forEach(input => {
+                                    input.classList.remove('error', 'success');
+                                });
+                                
+                                erros.forEach(erro => {
+                                    erro.textContent = '';
+                                });
+                            });
+                        });
+                    </script>
+                </div>
+            </section>
+        </main>
     </div>
     
     <script>
-        // Função para alternar entre atividades
-        function showActivity(activityNumber) {
-            // Esconder todas as atividades
-            document.querySelectorAll('.activity-content').forEach(activity => {
-                activity.classList.remove('active');
-            });
-            
-            // Mostrar a atividade selecionada
-            document.getElementById(`activity-${activityNumber}`).classList.add('active');
-            
-            // Atualizar botões de navegação
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            document.querySelectorAll('.nav-btn')[activityNumber - 1].classList.add('active');
-            
-            // Scroll para o topo
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Menu responsivo para Atividade 1
+        // Navegação entre questões
         document.addEventListener('DOMContentLoaded', function() {
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
+            const questoes = [
+                { id: 'questao1', titulo: 'Questão 1 - JavaScript no Frontend' },
+                { id: 'questao2', titulo: 'Questão 2 - Manipulação DOM' },
+                { id: 'questao3', titulo: 'Questão 3 - Modificar H1' },
+                { id: 'questao4', titulo: 'Questão 4 - Contador' },
+                { id: 'questao5', titulo: 'Questão 5 - Lista Dinâmica' },
+                { id: 'questao6', titulo: 'Questão 6 - Gerador de Nomes' },
+                { id: 'questao7', titulo: 'Questão 7 - Gravity Falls' },
+                { id: 'questao8', titulo: 'Questão 8 - Verificador de Texto' },
+                { id: 'questao9', titulo: 'Questão 9 - Modo Escuro' },
+                { id: 'questao10', titulo: 'Questão 10 - Slideshow' },
+                { id: 'questao11', titulo: 'Questão 11 - Validação Formulário' }
+            ];
             
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', function() {
-                    mobileMenu.classList.toggle('active');
+            const navegacao = document.getElementById('navegacao');
+            const questaoContainers = document.querySelectorAll('.questao-container');
+            
+            // Criar links de navegação
+            questoes.forEach((questao, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${questao.id}`;
+                a.textContent = questao.titulo;
+                a.dataset.index = index;
+                
+                if (index === 0) {
+                    a.classList.add('active');
+                }
+                
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    // Mudar ícone do menu
-                    const icon = this.querySelector('i');
-                    if (icon.classList.contains('fa-bars')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-times');
-                    } else {
-                        icon.classList.remove('fa-times');
-                        icon.classList.add('fa-bars');
-                    }
+                    // Remover classe active de todos os links
+                    document.querySelectorAll('#navegacao a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    
+                    // Adicionar classe active ao link clicado
+                    this.classList.add('active');
+                    
+                    // Ocultar todas as questões
+                    questaoContainers.forEach(container => {
+                        container.classList.remove('active');
+                    });
+                    
+                    // Mostrar apenas a questão clicada
+                    document.getElementById(questao.id).classList.add('active');
+                    
+                    // Scroll para o topo da questão
+                    document.getElementById('main-content').scrollTop = 0;
                 });
                 
-                // Fechar menu ao clicar em um link (para mobile)
-                document.querySelectorAll('.menu-mobile a').forEach(link => {
-                    link.addEventListener('click', function() {
-                        mobileMenu.classList.remove('active');
-                        document.querySelector('#menuToggle i').classList.remove('fa-times');
-                        document.querySelector('#menuToggle i').classList.add('fa-bars');
-                    });
-                });
-            }
-            
-            // Efeito interativo para células da grade Mondrian
-            document.querySelectorAll('.cell').forEach(cell => {
-                cell.addEventListener('mouseenter', function() {
-                    const originalColor = this.style.backgroundColor;
-                    this.style.transition = 'background-color 0.3s';
-                    this.style.backgroundColor = '#95a5a6';
-                    
-                    setTimeout(() => {
-                        this.style.backgroundColor = originalColor;
-                    }, 300);
-                });
+                li.appendChild(a);
+                navegacao.appendChild(li);
             });
+            
+            // Verificar hash na URL para navegação direta
+            if (window.location.hash) {
+                const hash = window.location.hash.substring(1);
+                const link = document.querySelector(`#navegacao a[href="#${hash}"]`);
+                if (link) {
+                    link.click();
+                }
+            }
         });
-        
-        // Explicação do cálculo flex para Atividade 1
-        console.log("ATIVIDADE 1 - Explicação do cálculo flex:");
-        console.log(".card-container { flex: 0 0 calc(25% - 15px); }");
-        console.log("- 0: não cresce (flex-grow)");
-        console.log("- 0: não encolhe (flex-shrink)");  
-        console.log("- calc(25% - 15px): largura base de 25% menos 15px");
-        console.log("  O gap é de 20px, dividido entre os dois lados (10px cada)");
-        console.log("  Subtraímos 15px (não 20px) para manter o espaçamento correto");
     </script>
 </body>
 </html>
